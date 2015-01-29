@@ -97,6 +97,12 @@ class TestSignalRate(NIOBlockTestCase):
         self.assertAlmostEqual(self._signal_rates['A'], 6 / 2, 1)
         self.assertAlmostEqual(self._signal_rates['B'], 0 / 2, 1)
 
+        # Sleep until the next notification, make sure everything's cleaned up
+        sleep(2)
+        self.assertEqual(len(blk._signal_counts['A']), 0)
+        self.assertEqual(len(blk._signal_counts['B']), 0)
+        self.assertAlmostEqual(self._signal_rates['A'], 0 / 2, 1)
+        self.assertAlmostEqual(self._signal_rates['B'], 0 / 2, 1)
         blk.stop()
 
     def _get_signals(self, group, count):

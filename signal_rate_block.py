@@ -55,8 +55,10 @@ class SignalRate(GroupBy, Block):
         """ Get the frequency for a group and add it to sigs_out """
         with self._signals_lock:
             ctime = _time()
-            signals = copy(self.trim_old_signals(
-                self._signal_counts[group], ctime))
+            self._signal_counts[group] = self.trim_old_signals(
+                self._signal_counts[group], ctime)
+
+            signals = copy(self._signal_counts[group])
 
         # Add up all of our current counts
         total_count = sum([grp[1] for grp in signals])
