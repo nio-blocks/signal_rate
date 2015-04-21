@@ -1,5 +1,5 @@
 from copy import copy
-from collections import defaultdict
+from collections import defaultdict, deque
 from time import time as _time
 from nio.common.block.base import Block
 from nio.common.discovery import Discoverable, DiscoverableType
@@ -23,7 +23,7 @@ class SignalRate(GroupBy, Persistence, Block):
 
     def __init__(self):
         super().__init__()
-        self._signal_counts = defaultdict(list)
+        self._signal_counts = defaultdict(deque)
         self._signals_lock = Lock()
         self._job = None
         self._start_time = None
@@ -33,6 +33,13 @@ class SignalRate(GroupBy, Persistence, Block):
         """ Overridden from persistence mixin """
         return {'start_time': '_start_time',
                 'signal_counts': '_signal_counts'}
+
+    def configure(self, context):
+        super().configure(context)
+        # This is just for backwards compatability with persistence
+        for group in self._signal_counts:
+            if isinstance(self._signal_counts[group], list):
+                self._signal_counts[group] = deque(self._signal_counts[group])
 
     def start(self):
         super().start()
@@ -85,8 +92,10 @@ class SignalRate(GroupBy, Persistence, Block):
 
     def trim_old_signals(self, signal_counts, ctime):
         """ Take some signal counts and get rid of old ones """
-        return [(ct, c) for (ct, c) in signal_counts
-                if ctime - ct < self._averaging_seconds]
+        while len(signal_counts) and \
+                ctime - signal_counts[0][0] >= self._averaging_seconds:
+            signal_counts.popleft()
+        return signal_counts
 
     def stop(self):
         if self._job:
