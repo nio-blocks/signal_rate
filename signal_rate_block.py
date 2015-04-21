@@ -5,18 +5,21 @@ from nio.common.block.base import Block
 from nio.common.discovery import Discoverable, DiscoverableType
 from nio.common.signal.base import Signal
 from nio.metadata.properties.timedelta import TimeDeltaProperty
+from nio.metadata.properties.version import VersionProperty
 from nio.modules.threading import Lock
 from nio.modules.scheduler import Job
 from .mixins.group_by.group_by_block import GroupBy
+from .mixins.persistence.persistence import Persistence
 
 
 @Discoverable(DiscoverableType.block)
-class SignalRate(GroupBy, Block):
+class SignalRate(GroupBy, Persistence, Block):
 
     report_interval = TimeDeltaProperty(default={"seconds": 1},
                                         title="Report Interval")
     averaging_interval = TimeDeltaProperty(default={"seconds": 5},
                                            title="Averaging Interval")
+    version = VersionProperty("0.1.0")
 
     def __init__(self):
         super().__init__()
@@ -26,8 +29,15 @@ class SignalRate(GroupBy, Block):
         self._start_time = None
         self._averaging_seconds = None
 
+    def persisted_values(self):
+        """ Overridden from persistence mixin """
+        return {'start_time': '_start_time',
+                'signal_counts': '_signal_counts'}
+
     def start(self):
-        self._start_time = _time()
+        super().start()
+        # use _start_time if it was loaded from persistence
+        self._start_time = self._start_time or _time()
         self._averaging_seconds = self.averaging_interval.total_seconds()
         self._job = Job(self.report_frequency, self.report_interval, True)
 
