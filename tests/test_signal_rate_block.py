@@ -1,4 +1,4 @@
-from collections import deque
+from collections import defaultdict, deque
 from ..signal_rate_block import SignalRate
 from nio.common.signal.base import Signal
 from nio.util.support.block_test_case import NIOBlockTestCase
@@ -116,14 +116,15 @@ class TestSignalRate(NIOBlockTestCase):
     def test_deque(self):
         blk = SignalRate()
         # Pretend that _signal_counts has this value loaded from persistence
-        blk._signal_counts = {
-            'key1': [(1,1)],
-            'key2': [(1,1)]
-        }
+        blk._signal_counts = defaultdict(list)
+        blk._signal_counts['key1'].append((1,1))
+        blk._signal_counts['key2'].append((1,1))
+        self.assertEqual(blk._signal_counts.default_factory, list)
         self.assertTrue(isinstance(blk._signal_counts['key1'], list))
         self.assertTrue(isinstance(blk._signal_counts['key2'], list))
         self.configure_block(blk, {
         })
+        self.assertEqual(blk._signal_counts.default_factory, deque)
         self.assertTrue(isinstance(blk._signal_counts['key1'], deque))
         self.assertTrue(isinstance(blk._signal_counts['key2'], deque))
 

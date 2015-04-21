@@ -37,8 +37,9 @@ class SignalRate(GroupBy, Persistence, Block):
     def configure(self, context):
         super().configure(context)
         # This is just for backwards compatability with persistence
-        for group in self._signal_counts:
-            if isinstance(self._signal_counts[group], list):
+        if self._signal_counts.default_factory == list:
+            self._signal_counts.default_factory = deque
+            for group in self._signal_counts:
                 self._signal_counts[group] = deque(self._signal_counts[group])
 
     def start(self):
