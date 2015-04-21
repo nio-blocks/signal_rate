@@ -1,3 +1,4 @@
+from collections import deque
 from ..signal_rate_block import SignalRate
 from nio.common.signal.base import Signal
 from nio.util.support.block_test_case import NIOBlockTestCase
@@ -111,6 +112,20 @@ class TestSignalRate(NIOBlockTestCase):
         self.assertAlmostEqual(self._signal_rates['A'], 0 / 2, 1)
         self.assertAlmostEqual(self._signal_rates['B'], 0 / 2, 1)
         blk.stop()
+
+    def test_deque(self):
+        blk = SignalRate()
+        # Pretend that _signal_counts has this value loaded from persistence
+        blk._signal_counts = {
+            'key1': [(1,1)],
+            'key2': [(1,1)]
+        }
+        self.assertTrue(isinstance(blk._signal_counts['key1'], list))
+        self.assertTrue(isinstance(blk._signal_counts['key2'], list))
+        self.configure_block(blk, {
+        })
+        self.assertTrue(isinstance(blk._signal_counts['key1'], deque))
+        self.assertTrue(isinstance(blk._signal_counts['key2'], deque))
 
     def _get_signals(self, group, count):
         return [Signal({"group": group, "val": val}) for val in range(count)]
