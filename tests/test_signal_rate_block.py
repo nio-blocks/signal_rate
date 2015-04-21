@@ -8,6 +8,13 @@ class TestSignalRate(NIOBlockTestCase):
 
     _signal_rates = {}
 
+    def get_test_modules(self):
+        return super().get_test_modules() + ['persistence']
+
+    def get_module_config_persistence(self):
+        """ Make sure we use in-memory persistence """
+        return {'persistence': 'default'}
+
     def test_rates_before_interval(self):
         blk = SignalRate()
         self.configure_block(blk, {
