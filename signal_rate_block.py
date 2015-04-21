@@ -85,8 +85,13 @@ class SignalRate(GroupBy, Persistence, Block):
 
     def trim_old_signals(self, signal_counts, ctime):
         """ Take some signal counts and get rid of old ones """
-        return [(ct, c) for (ct, c) in signal_counts
-                if ctime - ct < self._averaging_seconds]
+        index = 0
+        for (ct, c) in signal_counts:
+            if ctime - ct < self._averaging_seconds:
+                break
+            else:
+                index += 1
+        return signal_counts[index:]
 
     def stop(self):
         if self._job:
