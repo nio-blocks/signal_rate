@@ -1,18 +1,18 @@
 from copy import copy
 from collections import defaultdict, deque
 from time import time as _time
-from nio.common.block.base import Block
-from nio.common.discovery import Discoverable, DiscoverableType
-from nio.common.signal.base import Signal
-from nio.metadata.properties.timedelta import TimeDeltaProperty
-from nio.metadata.properties.version import VersionProperty
-from nio.modules.threading import Lock
+from nio.block.base import Block
+from nio.util.discovery import discoverable
+from nio.signal.base import Signal
+from nio.properties.timedelta import TimeDeltaProperty
+from nio.properties.version import VersionProperty
+from threading import Lock
 from nio.modules.scheduler import Job
-from .mixins.group_by.group_by_block import GroupBy
-from .mixins.persistence.persistence import Persistence
+from nio.block.mixins.group_by.group_by import GroupBy
+from nio.block.mixins.persistence.persistence import Persistence
 
 
-@Discoverable(DiscoverableType.block)
+@discoverable
 class SignalRate(GroupBy, Persistence, Block):
 
     report_interval = TimeDeltaProperty(default={"seconds": 1},
@@ -31,8 +31,7 @@ class SignalRate(GroupBy, Persistence, Block):
 
     def persisted_values(self):
         """ Overridden from persistence mixin """
-        return {'start_time': '_start_time',
-                'signal_counts': '_signal_counts'}
+        return  ['_start_time', '_signal_counts']
 
     def configure(self, context):
         super().configure(context)
@@ -46,8 +45,8 @@ class SignalRate(GroupBy, Persistence, Block):
         super().start()
         # use _start_time if it was loaded from persistence
         self._start_time = self._start_time or _time()
-        self._averaging_seconds = self.averaging_interval.total_seconds()
-        self._job = Job(self.report_frequency, self.report_interval, True)
+        self._averaging_seconds = self.averaging_interval().total_seconds()
+        self._job = Job(self.report_frequency, self.report_interval(), True)
 
     def process_signals(self, signals, input_id='default'):
         # Record the count for each group in this list of signals
@@ -61,9 +60,9 @@ class SignalRate(GroupBy, Persistence, Block):
     def report_frequency(self):
         signals = []
 
-        self.for_each_group(self.get_frequency, kwargs={'sigs_out': signals})
+        self.for_each_group(self.get_frequency, sigs_out=signals)
 
-        self._logger.debug(
+        self.logger.debug(
             "Current counts: {}".format(self._signal_counts))
 
         if signals:
