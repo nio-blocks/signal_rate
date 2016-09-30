@@ -78,7 +78,7 @@ class SignalRate(GroupBy, Persistence, Block):
             signals = copy(self._signal_counts[group])
 
         # Add up all of our current counts
-        total_count = sum([grp[1] for grp in signals])
+        total_count = sum(grp[1] for grp in signals)
 
         # If we haven't reached a full period, divide by elapsed time
         rate = total_count / min(
