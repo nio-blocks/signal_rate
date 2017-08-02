@@ -1,28 +1,10 @@
 {
-    "nio/SignalRate": {
-        "Properties": {
-            "group_by": {
-                "description": "The value by which signals are grouped. Output signals will have *group* set to this value.",
-                "type": "expression"
-            },
-            "averaging_interval": {
-                "description": "The interval over which to calculate frequencies.",
-                "type": "timedelta"
-            },
-            "report_interval": {
-                "description": "The interval at which to report frequencies.",
-                "type": "timedelta"
-            }
-        },
-        "Version": "1.0.0",
-        "Category": "SignalInspection",
-        "Description": "Pump in signals, see how fast you are pumping them in.",
-        "Output": {
-            "Description": "-   **rate**: The rate per second of the incoming signals\n-   **group**: The group that the counts relate to as defined by **group_by**."
-        },
-        "Commands": {},
-        "Input": {
-            "Description": "Any list of signals."
-        }
-    }
+  "nio/SignalRate": {
+    "version": "0.0.1",
+    "description": "",
+    "inputs": {},
+    "outputs": {},
+    "properties": {},
+    "commands": {}
+  }
 }
