@@ -35,12 +35,14 @@ class TestSignalRate(NIOBlockTestCase):
         self.assert_num_signals_notified(2)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][0].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][0].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][0]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][1].to_dict()['rate'],
             5 / 1, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][1].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][1].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][1]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][0].to_dict()['rate'],
             3 / 1, 1)
 
@@ -50,12 +52,14 @@ class TestSignalRate(NIOBlockTestCase):
         self.assert_num_signals_notified(4)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][2].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][2].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][2]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][3].to_dict()['rate'],
             5 / 2, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][3].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][3].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][3]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][2].to_dict()['rate'],
             3 / 2, 1)
 
@@ -64,12 +68,14 @@ class TestSignalRate(NIOBlockTestCase):
         sleep(1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][4].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][4].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][4]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][5].to_dict()['rate'],
             11 / 3, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][5].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][5].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][5]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][4].to_dict()['rate'],
             3 / 3, 1)
         blk.stop()
@@ -104,12 +110,14 @@ class TestSignalRate(NIOBlockTestCase):
         self.assert_num_signals_notified(2)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][0].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][0].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][0]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][1].to_dict()['rate'],
             5 / 1, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][1].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][1].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][1]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][0].to_dict()['rate'],
             3 / 1, 1)
 
@@ -119,12 +127,14 @@ class TestSignalRate(NIOBlockTestCase):
         self.assert_num_signals_notified(4)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][2].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][2].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][2]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][3].to_dict()['rate'],
             5 / 2, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][3].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][3].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][3]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][2].to_dict()['rate'],
             3 / 2, 1)
 
@@ -135,12 +145,14 @@ class TestSignalRate(NIOBlockTestCase):
         sleep(1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][4].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][4].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][4]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][5].to_dict()['rate'],
             6 / 2, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][5].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][5].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][5]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][4].to_dict()['rate'],
             0 / 2, 1)
 
@@ -150,12 +162,14 @@ class TestSignalRate(NIOBlockTestCase):
         self.assertEqual(len(blk._signal_counts['B']), 0)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][8].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][8].to_dict()['group'] == 'A'
+            if self.last_notified[DEFAULT_TERMINAL][8]
+                   .to_dict()['group'] == 'A'
             else self.last_notified[DEFAULT_TERMINAL][9].to_dict()['rate'],
             0 / 2, 1)
         self.assertAlmostEqual(
             self.last_notified[DEFAULT_TERMINAL][9].to_dict()['rate']
-            if self.last_notified[DEFAULT_TERMINAL][9].to_dict()['group'] == 'B'
+            if self.last_notified[DEFAULT_TERMINAL][9]
+                   .to_dict()['group'] == 'B'
             else self.last_notified[DEFAULT_TERMINAL][8].to_dict()['rate'],
             0 / 2, 1)
         blk.stop()
@@ -164,8 +178,8 @@ class TestSignalRate(NIOBlockTestCase):
         blk = SignalRate()
         # Pretend that _signal_counts has this value loaded from persistence
         blk._signal_counts = defaultdict(list)
-        blk._signal_counts['key1'].append((1,1))
-        blk._signal_counts['key2'].append((1,1))
+        blk._signal_counts['key1'].append((1, 1))
+        blk._signal_counts['key2'].append((1, 1))
         self.assertEqual(blk._signal_counts.default_factory, list)
         self.assertTrue(isinstance(blk._signal_counts['key1'], list))
         self.assertTrue(isinstance(blk._signal_counts['key2'], list))
