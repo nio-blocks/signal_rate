@@ -8,7 +8,7 @@ Properties
 - **averaging_interval**: The interval over which to calculate frequencies.
 - **backup_interval**: Interval to backup to persistence.
 - **group_by**: The value by which signals are grouped. Output signals will have *group* set to this value.
-- **load_from_persistence**: hether to load the signal rate state from persistence.
+- **load_from_persistence**: Whether to load the signal rate state from persistence.
 - **report_interval**: The interval at which to report frequencies.
 
 Inputs
