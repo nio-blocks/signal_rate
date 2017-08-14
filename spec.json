@@ -1,10 +1,52 @@
 {
   "nio/SignalRate": {
-    "version": "0.0.1",
-    "description": "",
+    "version": "0.1.0",
+    "description": "Pump in signals, see how fast you are pumping them in.",
+    "properties": {
+      "averaging_interval": {
+        "title": "Averaging Interval",
+        "type": "TimeDeltaType",
+        "description": "The interval over which to calculate frequencies.",
+        "default": {
+          "seconds": 5
+        }
+      },
+      "backup_interval": {
+        "title": "Backup Interval",
+        "type": "TimeDeltaType",
+        "description": "Interval to backup to persistence.",
+        "default": {
+          "seconds": 3600
+        }
+      },
+      "group_by": {
+        "title": "Group By",
+        "type": "Type",
+        "description": "The value by which signals are grouped. Output signals will have *group* set to this value.",
+        "default": null
+      },
+      "load_from_persistence": {
+        "title": "Load from Persistence?",
+        "type": "BoolType",
+        "description": "Whether to load the signal rate state from persistence.",
+        "default": true
+      },
+      "report_interval": {
+        "title": "Report Interval",
+        "type": "TimeDeltaType",
+        "description": "The interval at which to report frequencies.",
+        "default": {
+          "seconds": 1
+        }
+      }
+    },
     "inputs": {},
     "outputs": {},
-    "properties": {},
-    "commands": {}
+    "commands": {
+      "groups": {
+        "params": {},
+        "description": "View current state of the blocks groups"
+      }
+    }
   }
 }

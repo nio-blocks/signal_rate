@@ -1,18 +1,15 @@
 from copy import copy
 from collections import defaultdict, deque
 from time import time as _time
-from nio.block.base import Block
-from nio.util.discovery import discoverable
-from nio.signal.base import Signal
-from nio.properties.timedelta import TimeDeltaProperty
-from nio.properties.version import VersionProperty
 from threading import Lock
+
+from nio.block.base import Block
+from nio.signal.base import Signal
+from nio.properties import TimeDeltaProperty, VersionProperty
 from nio.modules.scheduler import Job
-from nio.block.mixins.group_by.group_by import GroupBy
-from nio.block.mixins.persistence.persistence import Persistence
+from nio.block.mixins import GroupBy, Persistence
 
 
-@discoverable
 class SignalRate(GroupBy, Persistence, Block):
 
     report_interval = TimeDeltaProperty(default={"seconds": 1},
@@ -31,7 +28,7 @@ class SignalRate(GroupBy, Persistence, Block):
 
     def persisted_values(self):
         """ Overridden from persistence mixin """
-        return  ['_start_time', '_signal_counts']
+        return ['_start_time', '_signal_counts']
 
     def configure(self, context):
         super().configure(context)

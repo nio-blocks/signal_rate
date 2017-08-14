@@ -1,29 +1,32 @@
 SignalRate
-=======
+==========
 
 Pump in signals, see how fast you are pumping them in.
 
 Properties
---------------
--   **report_interval** (type:timedelta): The interval at which to report frequencies.
--   **averaging_interval** (type:timedelta): The interval over which to calculate frequencies.
--   **group_by** (type:expression): The value by which signals are grouped. Output signals will have *group* set to this value.
+----------
+- **averaging_interval**: The interval over which to calculate frequencies.
+- **backup_interval**: Interval to backup to persistence.
+- **group_by**: The value by which signals are grouped. Output signals will have *group* set to this value.
+- **load_from_persistence**: hether to load the signal rate state from persistence.
+- **report_interval**: The interval at which to report frequencies.
 
+Inputs
+------
 
-Dependencies
-----------------
-[GroupBy Block Supplement](https://github.com/nio-blocks/block_supplements/tree/master/group_by)
-
-Commands
-----------------
-None
-
-Input
--------
 Any list of signals.
 
-Output
----------
+Outputs
+-------
+
+A signal at the specified reporting interval with the following fields:
 
 -   **rate**: The rate per second of the incoming signals
 -   **group**: The group that the counts relate to as defined by **group_by**.
+
+Commands
+--------
+- **groups**: View current state of the block's groups
+
+Dependencies
+------------
