@@ -1,6 +1,5 @@
 SignalRate
 ==========
-
 Pump in signals, see how fast you are pumping them in.
 
 Properties
@@ -13,20 +12,20 @@ Properties
 
 Inputs
 ------
-
-Any list of signals.
+- **default**: Any list of signals.
 
 Outputs
 -------
-
-A signal at the specified reporting interval with the following fields:
+- **default**: A signal at the specified reporting interval with a **rate** and **group** attribute.
 
 -   **rate**: The rate per second of the incoming signals
 -   **group**: The group that the counts relate to as defined by **group_by**.
 
 Commands
 --------
-- **groups**: View current state of the block's groups
+- **groups**: View current state of the blocks groups
 
 Dependencies
 ------------
+None
+

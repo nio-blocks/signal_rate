@@ -40,8 +40,16 @@
         }
       }
     },
-    "inputs": {},
-    "outputs": {},
+    "inputs": {
+      "default": {
+        "description": "Any list of signals."
+      }
+    },
+    "outputs": {
+      "default": {
+        "description": "A signal at the specified reporting interval with a **rate** and **group** attribute."
+      }
+    },
     "commands": {
       "groups": {
         "params": {},
