@@ -1,8 +1,10 @@
 from collections import defaultdict, deque
 from time import sleep
+
 from nio.block.terminals import DEFAULT_TERMINAL
 from nio.signal.base import Signal
 from nio.testing.block_test_case import NIOBlockTestCase
+
 from ..signal_rate_block import SignalRate
 
 
