@@ -2,6 +2,9 @@
   "nio/SignalRate": {
     "version": "0.1.0",
     "description": "Pump in signals, see how fast you are pumping them in.",
+    "categories": [
+      "Signal Inspection"
+    ],
     "properties": {
       "averaging_interval": {
         "title": "Averaging Interval",
