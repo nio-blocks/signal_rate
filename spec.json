@@ -1,7 +1,7 @@
 {
   "nio/SignalRate": {
     "version": "0.1.0",
-    "description": "Pump in signals, see how fast you are pumping them in.",
+    "description": "The SignalRate block calculates the rate (number of signals per **averaging interval** at which incoming signals enter the block.",
     "categories": [
       "Signal Inspection"
     ],
@@ -9,7 +9,7 @@
       "averaging_interval": {
         "title": "Averaging Interval",
         "type": "TimeDeltaType",
-        "description": "The interval over which to calculate frequencies.",
+        "description": "The interval over which to calculate signal rate.",
         "default": {
           "seconds": 5
         }
@@ -17,7 +17,7 @@
       "backup_interval": {
         "title": "Backup Interval",
         "type": "TimeDeltaType",
-        "description": "Interval to backup to persistence.",
+        "description": "An interval of time that specifies how often persisted data is saved.",
         "default": {
           "seconds": 3600
         }
@@ -25,19 +25,19 @@
       "group_by": {
         "title": "Group By",
         "type": "Type",
-        "description": "The value by which signals are grouped. Output signals will have *group* set to this value.",
+        "description": "The signal attribute on the incoming signal whose values will be used to define groups on the outgoing signal.",
         "default": null
       },
       "load_from_persistence": {
         "title": "Load from Persistence?",
         "type": "BoolType",
-        "description": "Whether to load the signal rate state from persistence.",
+        "description": "If `True`, the block’s state will be saved when the block is stopped, and reloaded once the block is restarted.",
         "default": true
       },
       "report_interval": {
         "title": "Report Interval",
         "type": "TimeDeltaType",
-        "description": "The interval at which to report frequencies.",
+        "description": "The interval at which to report the signal rate.",
         "default": {
           "seconds": 1
         }
