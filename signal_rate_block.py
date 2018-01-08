@@ -16,7 +16,7 @@ class SignalRate(GroupBy, Persistence, Block):
                                         title="Report Interval")
     averaging_interval = TimeDeltaProperty(default={"seconds": 5},
                                            title="Averaging Interval")
-    version = VersionProperty("0.1.0")
+    version = VersionProperty("0.1.1")
 
     def __init__(self):
         super().__init__()
