@@ -1,7 +1,7 @@
 {
   "nio/SignalRate": {
     "version": "0.1.0",
-    "description": "The SignalRate block calculates the rate (number of signals per **averaging interval** at which incoming signals enter the block.",
+    "description": "The SignalRate block calculates the rate (number of signals per **averaging interval**) at which incoming signals enter the block.",
     "categories": [
       "Signal Inspection"
     ],

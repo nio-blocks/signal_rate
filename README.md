@@ -1,6 +1,6 @@
 SignalRate
 ==========
-The SignalRate block calculates the rate (number of signals per **averaging interval** at which incoming signals enter the block.
+The SignalRate block calculates the rate (number of signals per **averaging interval**) at which incoming signals enter the block.
 
 Properties
 ----------
